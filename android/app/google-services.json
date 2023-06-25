@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "842625763843",
+    "project_id": "womenmobiledev",
+    "storage_bucket": "womenmobiledev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842625763843:android:123e41a59c58a3968c9c36",
+        "android_client_info": {
+          "package_name": "com.party_planner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "842625763843-ok0lgc2f9rc35jotgkgpi8e2getd5155.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.party_planner",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "842625763843-th7q5jqhor14f5fo15o8q65kcsula7f0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPz9z5nha2kvJnBHpR0swbwZ6OXKY1JgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "842625763843-th7q5jqhor14f5fo15o8q65kcsula7f0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

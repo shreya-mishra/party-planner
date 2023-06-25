@@ -9,7 +9,7 @@
  * @format
  */
 
- import React, {type PropsWithChildren} from 'react';
+ import React, {useState, type PropsWithChildren} from 'react';
  import {
    SafeAreaView,
    ScrollView,
@@ -21,7 +21,11 @@
  } from 'react-native';
  
  import {Colors} from 'react-native/Libraries/NewAppScreen';
- import Signup from './screens/Signup';
+//  import Signup from './screens/Signup';
+import Authenticated from './screens/Authenticated';
+import PhoneNumber from './screens/PhoneNumber';
+import OTPScreen from './screens/OTPScreen';
+import auth from '@react-native-firebase/auth';
  
  const Section: React.FC<
    PropsWithChildren<{
@@ -53,23 +57,64 @@
    );
  };
  
- const App = () => {
-   const isDarkMode = useColorScheme() === 'dark';
+const App = () => {
+  const isDarkMode = useColorScheme() === 'dark';
  
-   const backgroundStyle = {
-     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-   };
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
+
+  const [confirm, setConfirm] = useState(null);
+  const [authenticated, setAuthenticated] = useState(false);
  
-   return (
-     <SafeAreaView style={backgroundStyle}>
-       <StatusBar
-         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-         backgroundColor={backgroundStyle.backgroundColor}
-       />
-       <Signup />
-     </SafeAreaView>
-   );
- };
+  //  return (
+  //    <SafeAreaView style={backgroundStyle}>
+  //      <StatusBar
+  //        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+  //        backgroundColor={backgroundStyle.backgroundColor}
+  //      />
+  //      <Signup />
+
+  //    </SafeAreaView>
+  //  );
+
+  auth().onAuthStateChanged((user) => {
+    if(user) {
+      setAuthenticated(true);
+    } else {
+      setAuthenticated(false);
+    }
+  })
+
+  async function confirmOTP(code: any) {
+    try {
+      // @ts-expect-error
+      await confirm.confirm(code);
+      setConfirm(null);
+    } catch (error) {
+      // @ts-expect-error
+      alert('Invalid code');
+    }
+  }
+
+  async function signIn(phoneNumber: string) {
+    try {
+      const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+      // @ts-expect-error
+      setConfirm(confirmation);
+    } catch (error) {
+      // @ts-expect-error
+      alert(error);
+    }
+  }
+
+  if (authenticated) return <Authenticated />;
+
+  if (confirm) return <OTPScreen onSubmit={confirmOTP} />;
+
+  return <PhoneNumber onSubmit={signIn} />;
+
+};
  
  const styles = StyleSheet.create({
    sectionContainer: {
